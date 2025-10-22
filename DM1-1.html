@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Correction DM Mathématiques</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        
+        body {
+            font-family: 'Roboto', sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #f5f7fa;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background-color: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        
+        header {
+            text-align: center;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 2px solid #4a6fa5;
+        }
+        
+        h1 {
+            color: #2c3e50;
+            font-size: 28px;
+            margin-bottom: 10px;
+        }
+        
+        .student-info {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin: 15px 0;
+            font-size: 16px;
+        }
+        
+        .exercise {
+            margin-bottom: 40px;
+            padding: 20px;
+            border-radius: 8px;
+            background-color: #f8f9fa;
+            border-left: 4px solid #4a6fa5;
+        }
+        
+        .exercise-title {
+            color: #2c3e50;
+            font-size: 22px;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .exercise-title::before {
+            content: "•";
+            color: #4a6fa5;
+            font-size: 30px;
+            margin-right: 10px;
+        }
+        
+        .question {
+            margin-bottom: 25px;
+            padding: 15px;
+            background-color: white;
+            border-radius: 6px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        }
+        
+        .question-title {
+            font-size: 18px;
+            color: #4a6fa5;
+            margin-bottom: 15px;
+            font-weight: 500;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 15px 0;
+        }
+        
+        th, td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            text-align: center;
+        }
+        
+        th {
+            background-color: #4a6fa5;
+            color: white;
+        }
+        
+        .answer-btn {
+            background-color: #4a6fa5;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 10px 0;
+            font-size: 15px;
+            font-family: 'Roboto', sans-serif;
+            transition: background-color 0.3s;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .answer-btn:hover {
+            background-color: #3a5a80;
+        }
+        
+        .answer-btn::after {
+            content: "▼";
+            font-size: 12px;
+        }
+        
+        .answer-btn.active::after {
+            content: "▲";
+        }
+        
+        .solution {
+            background-color: #e8f4f8;
+            padding: 15px;
+            border-radius: 6px;
+            margin-top: 10px;
+            display: none;
+            border-left: 3px solid #4a6fa5;
+        }
+        
+        .solution.show {
+            display: block;
+        }
+        
+        .correct-answer {
+            color: #27ae60;
+            font-weight: 500;
+        }
+        
+        .math-expression {
+            font-family: 'Times New Roman', serif;
+            font-size: 18px;
+            margin: 10px 0;
+            padding: 10px;
+            background-color: #f9f9f9;
+            border-radius: 4px;
+            text-align: center;
+        }
+        
+        .calculation {
+            margin: 10px 0;
+            padding: 10px;
+            background-color: #f1f8e9;
+            border-radius: 4px;
+            font-family: 'Courier New', monospace;
+        }
+        
+        .points {
+            float: right;
+            background-color: #4a6fa5;
+            color: white;
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 14px;
+        }
+        
+        .drawing-space {
+            height: 200px;
+            border: 1px dashed #ccc;
+            margin: 15px 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #f9f9f9;
+        }
+        
+        .drawing-instruction {
+            text-align: center;
+            color: #7f8c8d;
+            font-style: italic;
+        }
+        
+        @media (max-width: 768px) {
+            .container {
+                padding: 15px;
+            }
+            
+            .student-info {
+                flex-direction: column;
+                gap: 10px;
+            }
+            
+            table {
+                font-size: 14px;
+            }
+            
+            th, td {
+                padding: 8px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Devoir Maison N° : 1 — Correction</h1>
+            <p>Mathématiques — CM1</p>
+            <p><strong>Pr. Nabil TAROUS</strong></p>
+        </header>
+        
+        <div class="exercise">
+            <h2 class="exercise-title">Exercice 1 : <span class="points">15 pts</span></h2>
+            
+            <div class="question">
+                <h3 class="question-title">1. Écris en chiffres, puis en toutes lettres, chaque nombre inscrit dans le tableau.</h3>
+                <table>
+                    <tr>
+                        <th colspan="3">Classe des mille</th>
+                        <th colspan="3">Classe des unités</th>
+                    </tr>
+                    <tr>
+                        <th>C</th>
+                        <th>D</th>
+                        <th>U</th>
+                        <th>C</th>
+                        <th>D</th>
+                        <th>U</th>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td>3</td>
+                        <td>4</td>
+                        <td>7</td>
+                        <td>0</td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>9</td>
+                        <td>2</td>
+                        <td>3</td>
+                        <td>2</td>
+                        <td>1</td>
+                    </tr>
+                    <tr>
+                        <td>1</td>
+                        <td>4</td>
+                        <td>2</td>
+                        <td>3</td>
+                        <td>2</td>
+                        <td>9</td>
+                    </tr>
+                    <tr>
+                        <td>4</td>
+                        <td>5</td>
+                        <td>2</td>
+                        <td>8</td>
+                        <td>3</td>
+                        <td>7</td>
+                    </tr>
+                </table>
+                
+                <button class="answer-btn" onclick="toggleSolution('solution1a')">Voir la correction</button>
+                <div id="solution1a" class="solution">
+                    <h4>En chiffres :</h4>
+                    <p>a. <span class="correct-answer">3 470</span></p>
+                    <p>b. <span class="correct-answer">9 321</span></p>
+                    <p>c. <span class="correct-answer">142 329</span></p>
+                    <p>d. <span class="correct-answer">452 837</span></p>
+                    
+                    <h4>En lettres :</h4>
+                    <p>a. <span class="correct-answer">Trois-mille-quatre-cent-soixante-dix</span></p>
+                    <p>b. <span class="correct-answer">Neuf-mille-trois-cent-vingt-et-un</span></p>
+                    <p>c. <span class="correct-answer">Cent-quarante-deux-mille-trois-cent-vingt-neuf</span></p>
+                    <p>d. <span class="correct-answer">Quatre-cent-cinquante-deux-mille-huit-cent-trente-sept</span></p>
+                </div>
+            </div>
+            
+            <div class="question">
+                <h3 class="question-title">2. Écris en chiffres chacun des nombres.</h3>
+                <button class="answer-btn" onclick="toggleSolution('solution1b')">Voir la correction</button>
+                <div id="solution1b" class="solution">
+                    <table>
+                        <tr>
+                            <th>Lettres</th>
+                            <th>Chiffres</th>
+                        </tr>
+                        <tr>
+                            <td>a) Dix-mille-sept</td>
+                            <td class="correct-answer">10 007</td>
+                        </tr>
+                        <tr>
+                            <td>b) Vingt-cinq-mille-huit-cent-trente-deux</td>
+                            <td class="correct-answer">25 832</td>
+                        </tr>
+                        <tr>
+                            <td>c) Cent-mille-deux-cents</td>
+                            <td class="correct-answer">100 200</td>
+                        </tr>
+                        <tr>
+                            <td>d) Cent-soixante-dix-mille</td>
+                            <td class="correct-answer">170 000</td>
+                        </tr>
+                        <tr>
+                            <td>e) Treize-mille-cent-vingt-neuf</td>
+                            <td class="correct-answer">13 129</td>
+                        </tr>
+                        <tr>
+                            <td>f) Cinq-cent-quatre-mille-neuf-cent-douze</td>
+                            <td class="correct-answer">504 912</td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+            
+            <div class="question">
+                <h3 class="question-title">3. Dans le nombre 453 198</h3>
+                <button class="answer-btn" onclick="toggleSolution('solution1c')">Voir la correction</button>
+                <div id="solution1c" class="solution">
+                    <p>- Le chiffre des unités est : <span class="correct-answer">8</span></p>
+                    <p>- Le chiffre des dizaines de mille est : <span class="correct-answer">5</span></p>
+                    <p>- Le chiffre des unités de mille est : <span class="correct-answer">3</span></p>
+                    <p>- Le nombre de centaines est : <span class="correct-answer">4 531</span> (car 453 198 ÷ 100 = 4 531,98)</p>
+                </div>
+            </div>
+            
+            <div class="question">
+                <h3 class="question-title">4. Pose et calcule :</h3>
+                <button class="answer-btn" onclick="toggleSolution('solution1d')">Voir la correction</button>
+                <div id="solution1d" class="solution">
+                    <div class="math-expression">a) 2563 - 321</div>
+                    <div class="calculation">
+                        2563<br>
+                        -  321<br>
+                        ------<br>
+                        <span class="correct-answer">2242</span>
+                    </div>
+                    
+                    <div class="math-expression">b) 2936 + 725</div>
+                    <div class="calculation">
+                        2936<br>
+                        +  725<br>
+                        ------<br>
+                        <span class="correct-answer">3661</span>
+                    </div>
+                    
+                    <div class="math-expression">c) 669 × 4</div>
+                    <div class="calculation">
+                        669<br>
+                        ×   4<br>
+                        ------<br>
+                        <span class="correct-answer">2676</span>
+                    </div>
+                    
+                    <div class="math-expression">d) 1286 + 4704</div>
+                    <div class="calculation">
+                        1286<br>
+                        + 4704<br>
+                        ------<br>
+                        <span class="correct-answer">5990</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="exercise">
+            <h2 class="exercise-title">Exercice 2 : <span class="points">5 pts</span></h2>
+            
+            <div class="question">
+                <h3 class="question-title">1. Trace un carré de 4 cm de côté.</h3>
+                <button class="answer-btn" onclick="toggleSolution('solution2a')">Voir la correction</button>
+                <div id="solution2a" class="solution">
+                    <div class="drawing-space">
+                        <div class="drawing-instruction">
+                            [Espace pour le dessin]<br>
+                            Un carré avec tous les côtés de 4 cm et tous les angles à 90°
+                        </div>
+                    </div>
+                    <p><strong>Instructions :</strong></p>
+                    <ul>
+                        <li>Tracer un segment de 4 cm</li>
+                        <li>À chaque extrémité, tracer un angle droit de 90°</li>
+                        <li>Sur chaque angle, mesurer 4 cm</li>
+                        <li>Relier les extrémités pour former le carré</li>
+                        <li>Vérifier que les 4 côtés mesurent 4 cm</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="question">
+                <h3 class="question-title">2. Tracer un rectangle de 6 cm de longueur et de 3 cm de largeur.</h3>
+                <button class="answer-btn" onclick="toggleSolution('solution2b')">Voir la correction</button>
+                <div id="solution2b" class="solution">
+                    <div class="drawing-space">
+                        <div class="drawing-instruction">
+                            [Espace pour le dessin]<br>
+                            Un rectangle avec longueur = 6 cm et largeur = 3 cm, angles à 90°
+                        </div>
+                    </div>
+                    <p><strong>Instructions :</strong></p>
+                    <ul>
+                        <li>Tracer un segment de 6 cm (longueur)</li>
+                        <li>À chaque extrémité, tracer un angle droit de 90°</li>
+                        <li>Sur chaque angle, mesurer 3 cm (largeur)</li>
+                        <li>Relier les extrémités pour former le rectangle</li>
+                        <li>Vérifier que les côtés opposés sont égaux (2 côtés de 6 cm, 2 côtés de 3 cm)</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function toggleSolution(solutionId) {
+            const solution = document.getElementById(solutionId);
+            const button = solution.previousElementSibling;
+            
+            solution.classList.toggle('show');
+            button.classList.toggle('active');
+            
+            if (solution.classList.contains('show')) {
+                button.textContent = 'Masquer la correction';
+            } else {
+                button.textContent = 'Voir la correction';
+            }
+        }
+        
+        // Ouvrir toutes les corrections (optionnel)
+        function showAllSolutions() {
+            const solutions = document.querySelectorAll('.solution');
+            const buttons = document.querySelectorAll('.answer-btn');
+            
+            solutions.forEach(solution => {
+                solution.classList.add('show');
+            });
+            
+            buttons.forEach(button => {
+                button.classList.add('active');
+                button.textContent = 'Masquer la correction';
+            });
+        }
+    </script>
+</body>
+</html>
